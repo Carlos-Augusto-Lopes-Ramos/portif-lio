@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Demo — [NOME DO PROJETO]</title>
+<title>Demo — Ind. CO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
@@ -44,6 +44,8 @@ nav {
   background: rgba(8,8,16,0.88);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 .nav-logo {
   font-family: 'Space Mono', monospace;
@@ -63,7 +65,7 @@ nav {
 }
 .nav-back:hover { color: var(--cyan); }
 .nav-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
-.nav-actions { display: flex; gap: 0.75rem; }
+.nav-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 .btn-sm {
   display: inline-flex; align-items: center; gap: 0.4rem;
   padding: 0.5rem 1.1rem;
@@ -91,6 +93,7 @@ nav {
 /* ── HERO ── */
 #hero {
   padding: 9rem 5vw 5rem;
+  max-width: 100%;
   position: relative;
   overflow: hidden;
 }
@@ -105,8 +108,11 @@ nav {
 
 .hero-inner {
   position: relative; z-index: 1;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 3rem; align-items: center; max-width: 1100px;
+  max-width: 720px;
+}
+
+.hero-left {
+  min-width: 280px;
 }
 
 .hero-tag {
@@ -133,7 +139,7 @@ h1 .accent {
 
 .hero-desc {
   font-size: 1rem; color: var(--muted);
-  line-height: 1.85; margin-bottom: 2rem; max-width: 440px;
+  line-height: 1.85; margin-bottom: 2rem; max-width: 560px;
 }
 
 .hero-meta {
@@ -167,41 +173,54 @@ h1 .accent {
   text-decoration: none; border-radius: 4px;
   transition: border-color 0.2s, color 0.2s, transform 0.2s; letter-spacing: 0.03em;
 }
-.btn-hero-o svg { width: 15px; height: 15px; stroke: currentColor; fill: none; }
 .btn-hero-o:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
 
 /* ── SCREEN MOCKUP ── */
+#showcase { background: var(--bg2); max-width: none; padding: 5rem 5vw; }
+.showcase-inner { max-width: 1200px; margin: 0 auto; }
 .screen-wrap {
   position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .screen-frame {
   background: var(--card);
   border: 1px solid var(--border);
+  width: 100%;
+  aspect-ratio: 1000 / 600;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 60px rgba(0,212,255,0.06);
+  display: flex;
+  flex-direction: column;
 }
 .screen-chrome {
   background: #0d0d1e;
   padding: 0.6rem 1rem;
   display: flex; align-items: center; gap: 0.5rem;
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
-.chrome-dots { display: flex; gap: 6px; }
+.chrome-dots { display: flex; gap: 6px; flex-shrink: 0; }
 .chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
 .chrome-dot:nth-child(1) { background: rgba(255,95,87,0.5); }
 .chrome-dot:nth-child(2) { background: rgba(254,188,46,0.5); }
 .chrome-dot:nth-child(3) { background: rgba(40,200,64,0.5); }
 .chrome-url {
-  flex: 1; background: #1a1a30; border-radius: 4px;
+  flex: 1; min-width: 0; background: #1a1a30; border-radius: 4px;
   padding: 0.2rem 0.75rem; margin: 0 1rem;
   font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.status-badge { flex-shrink: 0; }
 
 /* tabs inside mockup */
 .screen-tabs {
   display: flex; border-bottom: 1px solid var(--border);
   background: #0f0f1e;
+  overflow-x: auto;
+  flex-shrink: 0;
 }
 .screen-tab {
   padding: 0.6rem 1.2rem;
@@ -211,10 +230,18 @@ h1 .accent {
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
 }
 .screen-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
 
-.screen-body { position: relative; min-height: 280px; }
+.screen-body { position: relative; flex: 1; overflow-y: auto; }
+.mockup-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
 .screen-panel { display: none; padding: 1.5rem; }
 .screen-panel.active { display: block; }
 
@@ -260,7 +287,7 @@ section.full { max-width: none; padding-left: 5vw; padding-right: 5vw; }
 .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 560px; margin-bottom: 3rem; }
 
 /* ── FEATURES ── */
-#features { background: var(--bg2); max-width: none; padding: 5rem 5vw; }
+#features { background: var(--bg); max-width: none; padding: 5rem 5vw; }
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -298,7 +325,7 @@ section.full { max-width: none; padding-left: 5vw; padding-right: 5vw; }
 .feature-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.75; }
 
 /* ── TECH STACK ── */
-#stack { background: var(--bg); }
+#stack { background: var(--bg2); }
 .stack-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -329,7 +356,7 @@ section.full { max-width: none; padding-left: 5vw; padding-right: 5vw; }
 .stack-role { font-size: 0.72rem; color: var(--muted); }
 
 /* ── ARCHITECTURE ── */
-#arch { background: var(--bg2); max-width: none; padding: 5rem 5vw; }
+#arch { background: var(--bg); max-width: none; padding: 5rem 5vw; }
 .arch-inner { max-width: 900px; margin: 0 auto; }
 .arch-diagram {
   background: var(--card);
@@ -374,7 +401,7 @@ section.full { max-width: none; padding-left: 5vw; padding-right: 5vw; }
 }
 
 /* ── HIGHLIGHTS ── */
-#highlights { background: var(--bg); }
+#highlights { background: var(--bg2); }
 .highlights-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 3rem; align-items: center; max-width: 1000px;
@@ -405,7 +432,7 @@ section.full { max-width: none; padding-left: 5vw; padding-right: 5vw; }
 }
 
 /* ── CTA ── */
-#cta { background: var(--bg2); max-width: none; padding: 5rem 5vw; }
+#cta { background: var(--bg); max-width: none; padding: 5rem 5vw; }
 .cta-inner {
   max-width: 700px; margin: 0 auto; text-align: center;
 }
@@ -461,175 +488,140 @@ footer p { font-size: 0.75rem; color: var(--muted); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .hero-inner { grid-template-columns: 1fr; }
+  #hero { padding: 7.5rem 5vw 3.5rem; }
   .highlights-grid { grid-template-columns: 1fr; }
   .hl-stats { grid-template-columns: 1fr 1fr; }
   .arch-row { flex-direction: column; }
   .arch-arrow { transform: rotate(90deg); }
 }
+
+@media (max-width: 480px) {
+  .hero-ctas, .hero-meta { gap: 0.6rem; }
+  .btn-hero-p, .btn-hero-o { flex: 1 1 auto; justify-content: center; }
+}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
-     ✏️  EDITE AQUI: dados do projeto
-     ══════════════════════════════════════════ -->
 <script>
 const PROJECT = {
-  name:        "Sistema de Gestão — Izclau",       // Nome do projeto
-  tagline:     "Gestão integrada de fábrica &amp; comércio", // Subtítulo curto
-  type:        "Web &amp; Mobile · Full Stack",    // Tipo / categoria
-  period:      "Fev 2023 – Fev 2026",             // Período
-  status:      "Em produção",                     // Status
-  url:         "profissional.calr@gmail.com",     // URL do projeto (ou email)
-  urlLabel:    "Solicitar acesso",                // Label do botão principal
-  githubUrl:   "",                                // URL do GitHub (deixar vazio para ocultar)
+  name:        "Management System — Ind. CO",
+  tagline:     "Integrated factory &amp; retail management",
+  type:        "Web &amp; Mobile · Full Stack",
+  period:      "Feb 2023 – Feb 2026",
+  status:      "In production",
+  url:         "profissional.calr@gmail.com",
+  urlLabel:    "Request access",
+  githubUrl:   " ",
   description: `
-    Plataforma completa desenvolvida do zero para integrar a gestão comercial e os
-    processos operacionais de uma fábrica de roupas. Arquitetura Full Stack com
-    backend em <strong>Java + Spring Boot</strong>, aplicativo mobile em
-    <strong>React Native</strong> e frontend web em <strong>React</strong>,
-    com banco de dados relacional <strong>MySQL</strong>.
+    A complete platform built from scratch to integrate retail management and operational
+    processes for a clothing factory. Full Stack architecture with a
+    <strong>Java + Spring Boot</strong> backend, a <strong>React Native</strong> mobile app,
+    and a <strong>React</strong> web frontend, backed by a relational
+    <strong>MySQL</strong> database.
   `,
 
-  // MÉTRICAS / DESTAQUES
+  // METRICS / HIGHLIGHTS
   metrics: [
-    { value: "3+",   label: "Anos em produção" },
-    { value: "100%", label: "Entregue solo" },
-    { value: "2",    label: "Plataformas (web + mobile)" },
-    { value: "REST", label: "API integrada" },
+    { value: "3+",   label: "Years in production" },
+    { value: "100%", label: "Delivered solo" },
+    { value: "2",    label: "Platforms (web + mobile)" },
+    { value: "REST", label: "Integrated API" },
   ],
 
-  // FEATURES (máx. 6 recomendado)
+  // FEATURES
   features: [
     {
-      title: "Gestão comercial",
-      desc: "Controle de pedidos, clientes e vendas integrado ao sistema operacional da fábrica em tempo real.",
+      title: "Sales management",
+      desc: "Order, customer, and sales control integrated with the factory's operational system in real time.",
       icon: `<svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`
     },
     {
-      title: "App Mobile",
-      desc: "Aplicativo React Native para iOS e Android com acesso offline e sincronização automática via API REST.",
+      title: "Mobile App",
+      desc: "React Native app for iOS and Android with offline access and automatic synchronisation via REST API.",
       icon: `<svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`
     },
     {
-      title: "Automação de processos",
-      desc: "Fluxos automatizados para controle de produção, corte, costura e expedição de peças.",
+      title: "Process automation",
+      desc: "Automated workflows for production control, cutting, sewing, and garment dispatch.",
       icon: `<svg viewBox="0 0 24 24" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`
     },
     {
-      title: "APIs REST",
-      desc: "Backend desacoplado com endpoints documentados, autenticação e integração entre módulos comerciais e de fábrica.",
+      title: "REST APIs",
+      desc: "Decoupled backend with documented endpoints, authentication, and integration between retail and factory modules.",
       icon: `<svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>`
     },
     {
-      title: "Banco de dados relacional",
-      desc: "Modelagem normalizada em MySQL com relacionamentos entre produtos, pedidos, clientes e estoque.",
+      title: "Relational database",
+      desc: "Normalised MySQL schema with relationships between products, orders, customers, and inventory.",
       icon: `<svg viewBox="0 0 24 24" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`
     },
     {
-      title: "Arquitetura escalável",
-      desc: "Código organizado em camadas (MVC), separação de responsabilidades e boas práticas para evolução contínua.",
+      title: "Scalable architecture",
+      desc: "Layered codebase (MVC), separation of concerns, and best practices designed for long-term growth.",
       icon: `<svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`
     },
   ],
 
-  // STACK TÉCNICA
+  // TECH STACK
   stack: [
-    { abbr: "RCT",  name: "React",        role: "Frontend Web"    },
-    { abbr: "RN",   name: "React Native", role: "Mobile App"      },
-    { abbr: "JAVA", name: "Java",         role: "Backend Core"    },
-    { abbr: "SPR",  name: "Spring Boot",  role: "Framework API"   },
-    { abbr: "SQL",  name: "MySQL",        role: "Banco de Dados"  },
-    { abbr: "API",  name: "REST APIs",    role: "Integração"      },
-    { abbr: "GIT",  name: "Git",          role: "Controle de vers."},
-    { abbr: "MVC",  name: "Arquitetura",  role: "MVC / Clean Code"},
+    { abbr: "RCT",  name: "React",        role: "Web Frontend"      },
+    { abbr: "RN",   name: "React Native", role: "Mobile App"        },
+    { abbr: "JAVA", name: "Java",         role: "Backend Core"      },
+    { abbr: "SPR",  name: "Spring Boot",  role: "API Framework"     },
+    { abbr: "SQL",  name: "MySQL",        role: "Database"          },
+    { abbr: "API",  name: "REST APIs",    role: "Integration"       },
+    { abbr: "GIT",  name: "Git",          role: "Version control"   },
+    { abbr: "MVC",  name: "Architecture", role: "MVC / Clean Code"  },
   ],
 
-  // ARQUITETURA (camadas — edite os rótulos)
+  // ARCHITECTURE LAYERS
   arch: {
     layers: [
-      { label: "Cliente",  boxes: ["React Web", "React Native App"],    color: "cyan"   },
-      { label: "API",      boxes: ["Spring Boot REST API"],              color: "violet" },
-      { label: "Dados",    boxes: ["MySQL", "Spring Data JPA"],          color: "gray"   },
+      { label: "Client",  boxes: ["React Web", "React Native App"],    color: "cyan"   },
+      { label: "API",     boxes: ["Spring Boot REST API"],              color: "violet" },
+      { label: "Data",    boxes: ["MySQL", "Spring Data JPA"],          color: "gray"   },
     ]
   },
 
-  // HIGHLIGHTS (lista de pontos)
+  // HIGHLIGHTS
   highlights: [
-    "Projeto desenvolvido de forma 100% autônoma — da modelagem ao deploy.",
-    "Integração real-time entre módulos comerciais e de produção via API REST.",
-    "App mobile com sincronização offline e performance otimizada.",
-    "Arquitetura pensada para escalabilidade e manutenção a longo prazo.",
+    "Project developed 100% autonomously — from data modelling to deployment.",
+    "Real-time integration between retail and production modules via REST API.",
+    "Mobile app with offline sync and optimised performance.",
+    "Architecture designed for scalability and long-term maintainability.",
   ],
 
-  // TABS DO MOCKUP DE TELA
+  // MOCKUP TABS
   tabs: [
     {
-      label: "Dashboard",
-      content: `
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
-          <div style="background:rgba(0,212,255,0.07);border:1px solid rgba(0,212,255,0.15);border-radius:6px;padding:0.9rem;">
-            <div style="font-size:0.65rem;color:#7070a0;font-family:'Space Mono',monospace;letter-spacing:0.08em;margin-bottom:0.3rem;">PEDIDOS HOJE</div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:#00d4ff;">47</div>
-          </div>
-          <div style="background:rgba(123,47,255,0.07);border:1px solid rgba(123,47,255,0.15);border-radius:6px;padding:0.9rem;">
-            <div style="font-size:0.65rem;color:#7070a0;font-family:'Space Mono',monospace;letter-spacing:0.08em;margin-bottom:0.3rem;">EM PRODUÇÃO</div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:#a87fff;">128</div>
-          </div>
-          <div style="background:rgba(0,255,150,0.05);border:1px solid rgba(0,255,150,0.12);border-radius:6px;padding:0.9rem;">
-            <div style="font-size:0.65rem;color:#7070a0;font-family:'Space Mono',monospace;letter-spacing:0.08em;margin-bottom:0.3rem;">EXPEDIDOS</div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:#00ff96;">320</div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;overflow:hidden;">
-          <div style="padding:0.6rem 1rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;">
-            <span style="font-size:0.75rem;font-weight:600;">Pedidos recentes</span>
-            <span style="font-size:0.68rem;color:#7070a0;font-family:monospace;">ver todos →</span>
-          </div>
-          ${["#001 · Camisa Social · R$ 180", "#002 · Calça Jeans · R$ 240", "#003 · Vestido · R$ 310"].map(r => `
-          <div style="padding:0.6rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.78rem;color:#a0a0c0;">${r}</span>
-            <span style="font-size:0.62rem;padding:0.2rem 0.6rem;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);border-radius:20px;color:#00d4ff;">ativo</span>
-          </div>`).join('')}
-        </div>
-      `
-    },
-    {
-      label: "Mobile",
-      content: `
-        <div style="display:flex;justify-content:center;">
-          <div style="width:200px;background:#0d0d1e;border:1.5px solid rgba(123,47,255,0.35);border-radius:28px;overflow:hidden;">
-            <div style="background:#111128;padding:0.5rem;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">
-              <span style="font-family:monospace;font-size:0.62rem;color:#7070a0;">9:41 · Izclau App</span>
-            </div>
-            <div style="padding:0.8rem;">
-              <div style="background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(123,47,255,0.2));border-radius:8px;padding:0.8rem;margin-bottom:0.6rem;text-align:center;">
-                <div style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:#00d4ff;">47</div>
-                <div style="font-size:0.6rem;color:#7070a0;">pedidos abertos</div>
-              </div>
-              ${["Pedido #001","Pedido #002","Pedido #003"].map(p => `
-              <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:0.5rem 0.7rem;margin-bottom:0.4rem;display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:0.7rem;">${p}</span>
-                <span style="font-size:0.55rem;color:#00d4ff;">●</span>
-              </div>`).join('')}
-            </div>
-          </div>
-        </div>
-      `
-    },
+    label: "Dashboard",
+    content: `
+      <div style="display: flex;">
+        <img class="mockup-img" src="./imagens/Dashboard.png" />
+      </div>
+    `
+  },
+  {
+    label: "Mobile",
+    content: `
+      <div style="display:flex;justify-content:center;">
+        <img class="mockup-img" style="width:auto; height: 450px; max-width:100%;" src="./imagens/dashboard.png" />
+      </div>
+    `
+  },
     {
       label: "API",
       content: `
         <div style="background:#0a0a15;border-radius:6px;padding:1rem;font-family:'Space Mono',monospace;font-size:0.72rem;line-height:1.9;overflow-x:auto;">
-          <span style="color:#7070a0;">GET </span><span style="color:#00d4ff;">/api/v1/pedidos</span><br>
+          <span style="color:#7070a0;">GET </span><span style="color:#00d4ff;">/api/v1/orders</span><br>
           <span style="color:#7070a0;">Authorization: Bearer </span><span style="color:#a87fff;">{token}</span><br><br>
           <span style="color:#00ff96;">200 OK</span><br>
           <span style="color:#7070a0;">{</span><br>
           &nbsp;&nbsp;<span style="color:#00d4ff;">"total"</span><span style="color:#7070a0;">: </span><span style="color:#ffd700;">47</span>,<br>
           &nbsp;&nbsp;<span style="color:#00d4ff;">"page"</span><span style="color:#7070a0;">: </span><span style="color:#ffd700;">1</span>,<br>
           &nbsp;&nbsp;<span style="color:#00d4ff;">"data"</span><span style="color:#7070a0;">: [</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7070a0;">{ </span><span style="color:#00d4ff;">"id"</span><span style="color:#7070a0;">: </span><span style="color:#ffd700;">1</span><span style="color:#7070a0;">, </span><span style="color:#00d4ff;">"produto"</span><span style="color:#7070a0;">: </span><span style="color:#a8ff78;">"Camisa"</span><span style="color:#7070a0;">, </span><span style="color:#00d4ff;">"status"</span><span style="color:#7070a0;">: </span><span style="color:#a8ff78;">"ativo"</span><span style="color:#7070a0;"> }</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7070a0;">{ </span><span style="color:#00d4ff;">"id"</span><span style="color:#7070a0;">: </span><span style="color:#ffd700;">1</span><span style="color:#7070a0;">, </span><span style="color:#00d4ff;">"product"</span><span style="color:#7070a0;">: </span><span style="color:#a8ff78;">"Shirt"</span><span style="color:#7070a0;">, </span><span style="color:#00d4ff;">"status"</span><span style="color:#7070a0;">: </span><span style="color:#a8ff78;">"active"</span><span style="color:#7070a0;"> }</span><br>
           &nbsp;&nbsp;<span style="color:#7070a0;">]</span><br>
           <span style="color:#7070a0;">}</span>
         </div>
@@ -637,19 +629,18 @@ const PROJECT = {
     }
   ],
 
-  ctaTitle:   "Quer ver o projeto em ação?",
-  ctaSub:     "Entre em contato para agendar uma demonstração ao vivo ou solicitar acesso ao código-fonte.",
+  ctaTitle:   "Want to see the project in action?",
+  ctaSub:     "Get in touch to schedule a live demo or request access to the source code.",
 };
 </script>
-<!-- ══ FIM DA ÁREA DE EDIÇÃO ══ -->
 
 
 <!-- NAV -->
 <nav>
   <div class="nav-logo">CA<span>.</span>dev</div>
-  <a href="portfolio.html" class="nav-back">
+  <a href="index.html" class="nav-back">
     <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-    Portfólio
+    Portfolio
   </a>
   <div class="nav-actions" id="nav-actions"></div>
 </nav>
@@ -665,6 +656,17 @@ const PROJECT = {
       <p class="hero-desc" id="hero-desc"></p>
       <div class="hero-meta" id="hero-meta"></div>
       <div class="hero-ctas" id="hero-ctas"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE (project screens) -->
+<section id="showcase" class="full">
+  <div class="showcase-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">// Preview</div>
+      <h2 class="section-title">Project <span class="accent">in action</span></h2>
+      <div class="divider"></div>
     </div>
     <div class="screen-wrap reveal">
       <div class="screen-frame">
@@ -688,8 +690,8 @@ const PROJECT = {
 <section id="features" class="full">
   <div style="max-width:1100px;margin:0 auto">
     <div class="reveal">
-      <div class="section-eyebrow">// Funcionalidades</div>
-      <h2 class="section-title">O que o <span class="accent">projeto resolve</span></h2>
+      <div class="section-eyebrow">// Features</div>
+      <h2 class="section-title">What the <span class="accent">project solves</span></h2>
       <div class="divider"></div>
     </div>
     <div class="features-grid reveal" id="features-grid"></div>
@@ -700,7 +702,7 @@ const PROJECT = {
 <section id="stack">
   <div class="reveal">
     <div class="section-eyebrow">// Stack</div>
-    <h2 class="section-title">Tecnologias <span class="accent">utilizadas</span></h2>
+    <h2 class="section-title">Technologies <span class="accent">used</span></h2>
     <div class="divider"></div>
   </div>
   <div class="stack-grid reveal" id="stack-grid"></div>
@@ -710,8 +712,8 @@ const PROJECT = {
 <section id="arch" class="full">
   <div class="arch-inner">
     <div class="reveal">
-      <div class="section-eyebrow">// Arquitetura</div>
-      <h2 class="section-title">Estrutura do <span class="accent">sistema</span></h2>
+      <div class="section-eyebrow">// Architecture</div>
+      <h2 class="section-title">System <span class="accent">structure</span></h2>
       <div class="divider"></div>
     </div>
     <div class="arch-diagram reveal" id="arch-diagram"></div>
@@ -721,8 +723,8 @@ const PROJECT = {
 <!-- HIGHLIGHTS -->
 <section id="highlights">
   <div class="reveal">
-    <div class="section-eyebrow">// Diferenciais</div>
-    <h2 class="section-title">Por que este <span class="accent">projeto importa</span></h2>
+    <div class="section-eyebrow">// Highlights</div>
+    <h2 class="section-title">Why this <span class="accent">project matters</span></h2>
     <div class="divider"></div>
   </div>
   <div class="highlights-grid reveal">
@@ -751,15 +753,14 @@ const PROJECT = {
 </footer>
 
 <script>
-// ── RENDER ──
 document.addEventListener('DOMContentLoaded', () => {
   const P = PROJECT;
 
   // NAV
   let navH = `<a href="mailto:${P.url}" class="btn-sm btn-primary-sm">
     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    Contato</a>`;
-  if (P.githubUrl) navH = `<a href="${P.githubUrl}" target="_blank" class="btn-sm btn-outline-sm">
+    Contact</a>`;
+  if (P.githubUrl && P.githubUrl.trim()) navH = `<a href="${P.githubUrl}" target="_blank" class="btn-sm btn-outline-sm">
     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
     GitHub</a>` + navH;
   document.getElementById('nav-actions').innerHTML = navH;
@@ -778,7 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let ctasH = `<a href="mailto:profissional.calr@gmail.com" class="btn-hero-p">
     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
     ${P.urlLabel}</a>`;
-  if (P.githubUrl) ctasH += `<a href="${P.githubUrl}" target="_blank" class="btn-hero-o">
+  if (P.githubUrl && P.githubUrl.trim()) ctasH += `<a href="${P.githubUrl}" target="_blank" class="btn-hero-o">
     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
     GitHub</a>`;
   document.getElementById('hero-ctas').innerHTML = ctasH;
@@ -846,11 +847,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cta-btns').innerHTML = `
     <a href="mailto:profissional.calr@gmail.com" class="btn-cta-p">
       <svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Entrar em contato
+      Get in touch
     </a>
-    <a href="../" class="btn-cta-o">
+    <a href="./index.html" class="btn-cta-o">
       <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Ver outros projetos
+      View other projects
     </a>`;
 
   document.getElementById('footer-proj').textContent = P.name + ' · Demo Page';
